@@ -31,9 +31,9 @@ fi
 
 echo "LDAP_EMPTY RESULT: ${LDAP_EMPTY}"
 
-echo "Loading bootstrap ldif file 1"
+echo "Loading config ldif"
 ldapmodify -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /bootstrap/config.ldif
-echo "Loading bootstrap ldif file 2"
+echo "Loading db ldif"
 ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /bootstrap/db.ldif
 # Load the bootstrap schemas
 echo "Loading bootstrap default schemas"
@@ -42,14 +42,8 @@ ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /etc/ope
 ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /etc/openldap/schema/inetorgperson.ldif
 ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /etc/openldap/schema/java.ldif
 # Load the bootstrap ldif files
-echo "Loading bootstrap ldif file 3"
+echo "Loading overlays ldif"
 ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /bootstrap/overlays.ldif
-# load the delius rbac ldif files
-ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /rbac/schemas/delius.ldif
-ldapadd -Y EXTERNAL -H ldapi://%2Fvar%2Flib%2Fopenldap%2Frun%2Fldapi -f /rbac/schemas/pwm.ldif
-
-echo "Schemas loaded"
-
 kill $(cat /var/run/openldap/slapd.pid)
 
 # Wait for slapd to stop
