@@ -58,7 +58,7 @@ while true; do
     fi
 done
 
-if [ "$LDAP_EMPTY" == "true" ]; then
+if [ "$LDAP_EMPTY" == "true" && "$LDAP_SEED_ON_START" == "true" ]; then
     if [ "$LOCAL" == "true" ]; then
         echo "Loading local seed ldif file"
         echo "Adding seed ldif to ldap tree"
@@ -83,7 +83,7 @@ if [ "$LDAP_EMPTY" == "true" ]; then
         fi
     fi
 else
-    echo "LDAP data directory contains an mdb file. Did not seed data." 
+    echo "LDAP data directory contains an mdb file or LDAP_SEED_ON_START is false. Did not seed data."
     echo "Please verify this data is correct"
     echo "about to start slapd"
         # Replace this shell session with slapd so that it is PID 1

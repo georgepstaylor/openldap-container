@@ -13,6 +13,7 @@ LDAP_PORT=389
 MIGRATION_S3_LOCATION=s3://<bucket>/seed.ldif"
 # Password assigned to the root user
 BIND_PASSWORD=secure_password
+LDAP_SEED_ON_START=true/false
 ```
 
  
